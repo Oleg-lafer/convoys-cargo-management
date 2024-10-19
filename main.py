@@ -2,13 +2,25 @@ from item import Item
 from bin_packing import organize_items
 from visualization import visualize_3d
 
+# Predefined trunk sizes for military vehicles
+BIN_SIZES = {
+    "1": ("REO M809", 4, 2.44),
+    "2": ("Oshkosh HEMTT", 4, 2.5),
+    "3": ("HMMWV (Humvee)", 2, 2)
+}
 
-def get_bin_dimensions():
-    """Get user input for bin dimensions."""
-    width = float(input("Enter bin width (m): "))
-    height = float(input("Enter bin height (m): "))
-    depth = float(input("Enter bin depth (m): "))
-    return width, height, depth
+def choose_bin_size():
+    """Display predefined bin sizes and get user selection."""
+    print("Choose a bin size from the following options:")
+    for key, (name, length, width) in BIN_SIZES.items():
+        print(f"{key}. {name} - Length: {length}m, Width: {width}m")
+
+    choice = input("Enter the number of your choice: ")
+    if choice in BIN_SIZES:
+        return BIN_SIZES[choice][1], BIN_SIZES[choice][2]  # Returns (length, width)
+    else:
+        print("Invalid choice, please try again.")
+        return choose_bin_size()  # Recursive call for valid input
 
 
 def get_items():
@@ -28,15 +40,15 @@ def get_items():
 
 
 def main():
-    print("=== 3D Bin Packing Problem ===")
-    bin_width, bin_height, bin_depth = get_bin_dimensions()
+    bin_length, bin_width = choose_bin_size()
+    bin_height = float(input("Enter bin height (m): "))  # Allow height input separately
     items = get_items()
 
     # Organize the items within the bin
-    organized_items = organize_items(bin_width, bin_height, bin_depth, items)
+    organized_items = organize_items(bin_width, bin_height, bin_length, items)
 
     # Visualize the organized items in 3D
-    visualize_3d(bin_width, bin_height, bin_depth, organized_items)
+    visualize_3d(bin_width, bin_height, bin_length, organized_items)
 
 
 if __name__ == "__main__":
