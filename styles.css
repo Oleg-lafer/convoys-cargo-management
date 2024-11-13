@@ -1,0 +1,20 @@
+#input-section {
+    margin: 20px;
+}
+
+#items-list {
+    margin: 20px;
+}
+
+.item-entry {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-btn {
+    color: red;
+    cursor: pointer;
+}
