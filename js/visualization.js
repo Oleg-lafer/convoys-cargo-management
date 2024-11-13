@@ -68,11 +68,10 @@ class TruckVisualizer {
         const geometry = new THREE.BoxGeometry(item.width, item.height, item.depth);
         const colorHex = this.getColorHex(item.color);
         
-        const material = new THREE.MeshPhongMaterial({
+        const material = new THREE.MeshBasicMaterial({
             color: colorHex,
             opacity: 0.8,
-            transparent: true,
-            side: THREE.DoubleSide
+            transparent: true
         });
         
         const box = new THREE.Mesh(geometry, material);
@@ -107,6 +106,7 @@ class TruckVisualizer {
             'magenta': 0xff00ff,
             'brown': 0x8b4513
         };
+        console.log('Setting color:', colorName, 'Hex:', colorMap[colorName.toLowerCase()]);
         return colorMap[colorName.toLowerCase()] || 0x808080;
     }
     

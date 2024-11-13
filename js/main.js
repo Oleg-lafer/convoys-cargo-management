@@ -18,13 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const itemDiv = document.createElement('div');
             itemDiv.className = 'item-entry';
             itemDiv.innerHTML = `
-                ${item.name} (${item.width}m × ${item.height}m × ${item.depth}m, ${item.weight}kg)
+                ${item.name} (${item.width}m &times; ${item.height}m &times; ${item.depth}m, ${item.weight}kg)
                 <span class="delete-btn" data-index="${index}">×</span>
             `;
             itemsList.appendChild(itemDiv);
         });
 
-        // Add delete functionality
         document.querySelectorAll('.delete-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const index = parseInt(e.target.dataset.index);
@@ -35,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Form submission handler
     document.getElementById('item-form').addEventListener('submit', (e) => {
         e.preventDefault();
         const name = document.getElementById('name').value;
@@ -47,21 +45,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const newItem = new Item(name, width, height, depth, weight);
         currentItems.push(newItem);
         
-        // Reset form
         e.target.reset();
         
         updateItemsList();
         updateVisualization();
     });
 
-    // Load predefined items button handler
     document.getElementById('load-predefined').addEventListener('click', () => {
         currentItems = [...predefinedItems];
         updateItemsList();
         updateVisualization();
     });
 
-    // Calculate button handler
     document.getElementById('calculate').addEventListener('click', () => {
         updateVisualization();
     });
