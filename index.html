@@ -37,10 +37,6 @@
             background-color: #45a049;
         }
 
-        #load-predefined {
-            background-color: #008CBA;
-        }
-
         .item-entry {
             padding: 10px;
             margin: 5px 0;
@@ -48,6 +44,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .item-id {
+            color: #666;
+            font-size: 0.9em;
+            margin-right: 10px;
         }
 
         .delete-btn {
@@ -63,6 +65,27 @@
             margin: 20px auto;
             border: 1px solid #ccc;
         }
+
+        /* Add new CSV-related styles here */
+        .csv-info {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .csv-info a {
+            margin-left: 10px;
+            color: #008CBA;
+            text-decoration: none;
+        }
+
+        .csv-info a:hover {
+            text-decoration: underline;
+        }
+
+        #upload-csv {
+            background-color: #4CAF50;
+        }
     </style>
 </head>
 <body>
@@ -77,12 +100,14 @@
                 <input type="number" id="height" placeholder="Height (m)" step="0.1" required>
                 <input type="number" id="depth" placeholder="Depth (m)" step="0.1" required>
                 <input type="number" id="weight" placeholder="Weight (kg)" step="0.1" required>
+                <input type="number" id="amount" placeholder="Quantity" min="1" value="1" required>
                 <button type="submit">Add Item</button>
             </div>
         </form>
         
         <div class="form-group">
-            <button id="load-predefined">Load Predefined Items</button>
+            <input type="file" id="csv-upload" accept=".csv" style="display: none;">
+            <button id="upload-csv">Upload CSV</button>
             <button id="calculate">Calculate Packing</button>
         </div>
     </div>
@@ -92,7 +117,6 @@
     <div id="visualization"></div>
 
     <script src="js/Item.js"></script>
-    <script src="js/predefinedItems.js"></script>
     <script src="js/binPacking.js"></script>
     <script src="js/visualization.js"></script>
     <script src="js/main.js"></script>

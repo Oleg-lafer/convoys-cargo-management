@@ -1,4 +1,13 @@
+/**
+ * Class handling the 3D bin packing algorithm for truck loading
+ */
 class BinPacker {
+    /**
+     * Initialize the bin packer with truck dimensions
+     * @param {number} truckWidth - Width of the truck in meters
+     * @param {number} truckHeight - Height of the truck in meters
+     * @param {number} truckDepth - Depth of the truck in meters
+     */
     constructor(truckWidth = 2.4, truckHeight = 2.6, truckDepth = 4.0) {
         this.truckWidth = truckWidth;
         this.truckHeight = truckHeight;
@@ -7,6 +16,14 @@ class BinPacker {
         this.colors = ['red', 'blue', 'orange', 'purple', 'yellow', 'cyan', 'magenta', 'brown'];
     }
 
+    /**
+     * Check if an item can be placed at the specified position
+     * @param {Item} item - Item to check
+     * @param {number} x - X coordinate
+     * @param {number} y - Y coordinate
+     * @param {number} z - Z coordinate
+     * @returns {boolean} True if space is available
+     */
     checkSpaceAvailable(item, x, y, z) {
         // Check if item fits within truck boundaries
         if (x + item.width > this.truckWidth ||
@@ -31,6 +48,11 @@ class BinPacker {
         return true;
     }
 
+    /**
+     * Find the next available position for an item
+     * @param {Item} item - Item to place
+     * @returns {Object|null} Position coordinates or null if no space found
+     */
     findNextPosition(item) {
         let z = 0;
         while (z + item.height <= this.truckHeight) {
@@ -54,9 +76,24 @@ class BinPacker {
         return null;
     }
 
+    /**
+     * Pack items into the truck
+     * @param {Item[]} items - Array of items to pack
+     * @returns {Item[]} Array of successfully packed items
+     */
     packItems(items) {
+        // Create copies of items based on their amount, maintaining parent ID
+        const itemsWithQuantities = items.flatMap(item => 
+            Array(item.amount).fill().map(() => {
+                const clone = item.clone();
+                clone.parentId = item.id; // Keep track of original item's ID
+                return clone;
+            })
+        );
+
         // Sort items by volume in descending order
-        const sortedItems = [...items].sort((a, b) => b.volume - a.volume);
+        const sortedItems = itemsWithQuantities.sort((a, b) => b.volume - a.volume);
+        
         this.organizedItems = [];
         const unplacedItems = [];
 
@@ -70,7 +107,7 @@ class BinPacker {
                 this.organizedItems.push(item);
 
                 console.log(
-                    `${index + 1}. ${item.name} (${item.color}):\n` +
+                    `${index + 1}. ${item.name} (ID: ${item.id}, Parent: ${item.parentId}):\n` +
                     `   x: ${position.x.toFixed(2)} to ${(position.x + item.width).toFixed(2)} (Width: ${item.width}m)\n` +
                     `   y: ${position.y.toFixed(2)} to ${(position.y + item.depth).toFixed(2)} (Depth: ${item.depth}m)\n` +
                     `   z: ${position.z.toFixed(2)} to ${(position.z + item.height).toFixed(2)} (Height: ${item.height}m)`

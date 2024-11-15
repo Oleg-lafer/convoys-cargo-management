@@ -1,0 +1,11 @@
+﻿name,width,height,depth,weight,amount
+Small Box,0.5,0.5,0.5,5,3
+Medium Box,0.8,0.6,0.7,8,2
+Large Box,1.0,1.0,1.0,15,1
+Tool Kit,0.4,0.3,0.2,3,4
+First Aid Kit,0.3,0.2,0.2,1,2
+Water Container,0.4,0.6,0.4,5,3
+Camping Chair,0.5,0.9,0.5,2.5,2
+Equipment Case,0.7,0.5,0.6,10,1
+Storage Bin,0.9,0.4,0.6,7,2
+Emergency Kit,0.5,0.4,0.3,4,1
