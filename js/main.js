@@ -76,8 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     parseFloat(height),
                     parseFloat(depth),
                     parseFloat(weight),
-                    parseInt(amount) || 1,
-                    Math.random().toString(36).substr(2, 9)
+                    parseInt(amount) || 1
                 );
                 items.push(item);
             }
@@ -94,10 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const depth = parseFloat(document.getElementById('depth').value);
         const weight = parseFloat(document.getElementById('weight').value);
         const amount = parseInt(document.getElementById('amount').value) || 1;
-        const id = Math.random().toString(36).substr(2, 9); // Generate unique ID
 
-        // Create new item with unique ID
-        const newItem = new Item(name, width, height, depth, weight, amount, id);
+        // Create new item without explicit ID
+        const newItem = new Item(name, width, height, depth, weight, amount);
         currentItems.push(newItem);
         
         e.target.reset();

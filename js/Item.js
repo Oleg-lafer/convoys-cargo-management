@@ -19,8 +19,8 @@ class Item {
         this.depth = depth;
         this.weight = weight;
         this.amount = amount;
-        // Generate random ID if none provided
-        this.id = id || Math.random().toString(36).substr(2, 9);
+        // Generate sequential ID if none provided
+        this.id = id || Item.generateId();
         
         // Calculate volume in cubic meters
         this.volume = width * height * depth;
@@ -56,5 +56,17 @@ class Item {
      */
     toString() {
         return `${this.name} (${this.width}x${this.height}x${this.depth}m, ${this.weight}kg, Qty: ${this.amount})`;
+    }
+
+    // Add static counter for ID generation
+    static #counter = 0;
+    
+    /**
+     * Generates a sequential ID for new items
+     * @returns {string} A unique identifier in the format "ITEM_001"
+     */
+    static generateId() {
+        Item.#counter++;
+        return `ITEM_${String(Item.#counter).padStart(3, '0')}`;
     }
 }
