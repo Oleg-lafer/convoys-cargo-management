@@ -94,15 +94,37 @@ document.addEventListener('DOMContentLoaded', () => {
         const weight = parseFloat(document.getElementById('weight').value);
         const amount = parseInt(document.getElementById('amount').value) || 1;
 
-        // Create new item without explicit ID
-        const newItem = new Item(name, width, height, depth, weight, amount);
-        currentItems.push(newItem);
-        
+        // Create new item object
+        const newItem = { name, width, height, depth, weight, amount };
+
+        // Send item to the server
+        fetch('/api/items', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newItem)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Item added:', data);
+            currentItems.push(newItem); // Update local state
+            updateItemsList(); // Update the list
+        })
+        .catch(error => console.error('Error:', error));
+
         e.target.reset();
         document.getElementById('amount').value = '1'; // Reset amount to default
-        
-        updateItemsList(); // Only update the list, not the visualization
     });
+
+    // Fetch items from the database on load
+    fetch('/api/items')
+        .then(response => response.json())
+        .then(data => {
+            currentItems = data; // Load items from the database
+            updateItemsList(); // Update the list
+        })
+        .catch(error => console.error('Error fetching items:', error));
 
     // Add click handler for the upload button
     const uploadButton = document.getElementById('upload-csv');
@@ -120,9 +142,25 @@ document.addEventListener('DOMContentLoaded', () => {
             reader.onload = (e) => {
                 try {
                     const items = parseCSV(e.target.result);
+                    console.log('Parsed items from CSV:', items); // Log parsed items
                     if (items.length > 0) {
-                        currentItems = items;
-                        updateItemsList();
+                        // Send each item to the server
+                        items.forEach(item => {
+                            fetch('/api/items', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(item)
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log('Item added from CSV:', data);
+                                currentItems.push(item); // Update local state
+                                updateItemsList(); // Update the list
+                            })
+                            .catch(error => console.error('Error adding item from CSV:', error));
+                        });
                         alert(`Successfully loaded ${items.length} items from CSV`);
                     } else {
                         alert('No valid items found in CSV file');
