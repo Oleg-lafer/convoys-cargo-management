@@ -1,7 +1,7 @@
 # Truck Packing Calculator
 
 <div style="display: flex;">
-  <img src="bin algo.PNG" width="25%">
+  <img src="bin algo.PNG" width="100%">
 </div>
 
 ## Overview
