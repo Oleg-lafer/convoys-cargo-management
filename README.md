@@ -1,5 +1,9 @@
 # Truck Packing Calculator
 
+<div style="display: flex;">
+  <img src="bin algo.PNG" width="25%">
+</div>
+
 ## Overview
 The Truck Packing Calculator is a web application that visualizes the packing of items into a truck. It allows users to add items, either manually or via CSV upload, and calculates how to best fit these items within a specified truck size. The application uses Three.js for 3D visualization.
 
