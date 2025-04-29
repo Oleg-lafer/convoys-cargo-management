@@ -1,61 +1,111 @@
-# Truck Packing Calculator
+# 🚛 Truck Packing Calculator
 
 <div style="display: flex;">
   <img src="bin algo.PNG" width="100%">
 </div>
 
-## Overview
-The Truck Packing Calculator is a web application that visualizes the packing of items into a truck. It allows users to add items, either manually or via CSV upload, and calculates how to best fit these items within a specified truck size. The application uses Three.js for 3D visualization.
 
-## Features
-- **3D Visualization**: View the truck and its contents in a 3D environment.
-- **Item Management**: Add, delete, and manage items to be packed.
-- **CSV Upload**: Import items from a CSV file for bulk addition.
-- **Dynamic Packing Calculation**: Automatically calculates the best arrangement of items within the truck.
+A lightweight Python application that simulates and visualizes how items are packed into a truck in 3D.  
+Easily add items manually or via CSV and see how they fit using a simple bin-packing algorithm and 3D visualization.
 
-## Technologies Used
-- **HTML/CSS**: For the structure and styling of the web application.
-- **JavaScript**: For the application logic and interactivity.
-- **Three.js**: A JavaScript library for creating 3D graphics in the browser.
-- **Bin Packing Algorithm**: To efficiently pack items into the truck.
+---
 
-## Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/truck-packing-calculator.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd truck-packing-calculator
-   ```
-3. Open `index.html` in your web browser.
+## ✨ Features
 
-## Usage
-1. **Add Items**: Fill in the item details (name, dimensions, weight, quantity) and click "Add Item".
-2. **Upload CSV**: Click "Upload CSV" to select a CSV file containing item details.
-3. **Calculate Packing**: Click "Calculate Packing" to visualize how the items fit into the truck.
-4. **Delete Items**: Click the delete button next to an item in the list to remove it.
+- 📦 **Manual or CSV Item Input**  
+  Add items via console input or bulk import using a CSV file.
 
-## CSV Format
-The CSV file should have the following format:
-name,width,height,depth,weight,amount
-Item1,2.0,2.5,3.0,10.0,1
-Item2,1.5,1.5,2.0,5.0,2
+- 🧠 **Simple Bin-Packing Algorithm**  
+  Automatically arranges items in the truck while attempting to minimize wasted space.
 
+- 📊 **3D Visualization**  
+  Uses `matplotlib` to render a 3D model of the truck and the packed boxes.
 
+- ❌ **Overflow Detection**  
+  Items that can't fit in the truck are reported.
 
+---
 
+## 📁 Project Structure
 
-- The first row is optional and can be a header.
-- Each subsequent row represents an item.
+```
+truck_packing/
+├── main.py             # Entry point for the application
+├── packing.py          # Contains the packing algorithm
+├── item_loader.py      # Handles CSV and manual item input
+├── visualize.py        # Creates a 3D visualization using matplotlib
+└── items.csv           # (Optional) Sample item file
+```
 
-## Contributing
-Contributions are welcome! Please fork the repository and submit a pull request for any changes or improvements.
+---
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+## 🛠️ Installation
 
-## Acknowledgments
-- [Three.js](https://threejs.org/) for the 3D rendering capabilities.
-- [Bin Packing Algorithm](https://en.wikipedia.org/wiki/Bin_packing) for efficient item arrangement.
+### 1. Clone the repository
 
+```bash
+git clone https://github.com/your-username/truck-packing-calculator.git
+cd truck_packing-calculator
+```
+
+### 2. Install dependencies
+
+```bash
+pip install matplotlib
+```
+
+---
+
+## 📥 Input Methods
+
+### Option 1: Manual Entry  
+You'll be prompted to input item dimensions and names via console.
+
+### Option 2: CSV Input  
+Prepare a file named `items.csv` like this:
+
+```csv
+name,width,height,depth
+Box A,20,30,10
+Box B,40,20,30
+Box C,10,10,10
+Box D,50,40,20
+```
+
+---
+
+## ▶️ Running the Application
+
+```bash
+python main.py
+```
+
+Follow the on-screen prompts to choose input method and visualize the result.
+
+---
+
+## 🧠 How It Works
+
+- The truck has fixed dimensions (`100 x 100 x 100` units by default).
+- The packing algorithm attempts to place items in rows and layers.
+- Items are placed from left to right, front to back, bottom to top.
+- If an item doesn't fit in the remaining space, it's skipped with a warning.
+
+---
+
+## 🖼️ Visualization Sample
+
+![Truck Packing Visualization](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/3D_Box_Example.png/640px-3D_Box_Example.png)
+
+(Replace with a screenshot of your actual output if available.)
+
+---
+
+## 🚀 Future Improvements
+
+- Replace algorithm with 3D bin-packing heuristic (e.g. Guillotine / Skyline / Genetic Algorithm)
+- Save/load packing plans
+- Add GUI using PyQt or Tkinter
+- Export result as image or interactive HTML
+
+---
